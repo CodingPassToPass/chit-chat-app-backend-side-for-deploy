@@ -15,7 +15,12 @@ const isAuthenticated = catchAsyncErrors( async ( req, res, next) =>{
         }
     }
 
-    const decodedData = jwt.verify( token, process.env.JWT_SECRET);
+    try{
+        const decodedData = jwt.verify( token, process.env.JWT_SECRET);
+    }
+    catch(err){
+        return next(new errorHandler("loading..."));
+    }
     
     const user = await User.findById( decodedData.id);
 
@@ -42,7 +47,12 @@ const adminOnly = catchAsyncErrors( async( req, res, next)=>{
         return next( new errorHandler("Only Admin can access this route", 401));
     }
 
-    const secretKey = jwt.verify( token, process.env.JWT_SECRET);
+    try{
+        const secretKey = jwt.verify( token, process.env.JWT_SECRET);
+    }
+    catch(err){
+        return next(new errorHandler("loading..."));
+    }
 
     const isMatched = secretKey === process.env.ADMIN_SECRET_KEY;
    
