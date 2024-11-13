@@ -47,7 +47,6 @@ const newUser =  catchAsyncErrors( async ( req, res, next)=>{
         }
     });
 
-    console.log(user);
     
 
     sendToken( res, user, 201, "User created successfully");
