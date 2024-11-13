@@ -15,9 +15,9 @@ const isAuthenticated = catchAsyncErrors( async ( req, res, next) =>{
         }
     }
 
-    let decodeData;
+    let decodedData;
     try{
-        decodeData = jwt.verify( token, process.env.JWT_SECRET);
+        decodedData = jwt.verify( token, process.env.JWT_SECRET);
     }
     catch(err){
         return next(new errorHandler("loading..."));
